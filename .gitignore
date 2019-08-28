@@ -1,1 +1,5 @@
 .ipynb_checkpoints/
+datasets/edstats/*.csv
+datasets/edstats/*.zip
+datasets/indicators/*.zip
+datasets/indicators/*.csv
