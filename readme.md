@@ -42,7 +42,10 @@ The analysis is grouped into different stages and jupyter notebooks, which can b
 
 The general questions I wanted to answer where:
 
-* ToDo
+* How are the years of schooling related to the proficiency in skills such as math or reading?
+* Which economic factors (e.g. GDP) have the largest influence (i.e. correlation) on general education? 
+* How do economic factors influence the education of male vs female students?
+* Which skills develop at which amount of schooling stated over the influence of the relevant economic indicators?
 
 ## Data Sources
 
