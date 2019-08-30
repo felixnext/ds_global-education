@@ -53,3 +53,7 @@ The analysis is based on the following datasets:
 
 * **WorldBank Education Statistics** (version used here is from [kaggle](https://www.kaggle.com/theworldbank/education-statistics/version/45#) - There might be a newer version available on the [WorldBank Homepage](https://datatopics.worldbank.org/education/home))
 * **Economic Indicators** from the WorldBank Data (can be found [here](https://data.worldbank.org/indicator) - the datasets folder contains a script to crawl the relevant data)
+
+### Notable Findings
+
+* The total population of a country does not match up with the combined sum of people from the wittgenstein indicators. (Assumption: The indicators do not consider parts of the population before the official entrance age for education - I therefore treat the remaining percentages in the `No Education` group)
