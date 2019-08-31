@@ -148,7 +148,7 @@ def retrieve_wittgenstein_population(df):
     
     return df_witt
 
-def retrieve_barrolee_percentage():
+def retrieve_barrolee_percentage(df):
     '''Retrieve the Barro-Lee Indicators for education of different parts of the population in percentage.
     
     Percentage of population of the stated group that has completed or incompleted education of the stated type.
@@ -203,7 +203,7 @@ def retrieve_education_length(df):
         Dataframe with all datapoints for the indicator and additional columns: `['education']`
     '''
     # retrieve data
-    df_edu = _retrieve_indicator(df, 'Theoretical duration of .* education (years)')
+    df_edu = _retrieve_indicator(df, 'Theoretical duration of .* education \(years\)')
     
     # split data
     df_edu_groups = df_edu['Indicator Name'].str.extract('Theoretical duration of (?P<education>[\s\S]+) education (years)', expand=True)
@@ -223,7 +223,7 @@ def retrieve_gdp_education_institution(df):
         Dataframe with all datapoints for the indicator and additional columns: `[institution]`
     '''
     # retrieve data
-    df_gdp = _retrieve_indicator(df, 'Government expenditure in .* as % of GDP (%)')
+    df_gdp = _retrieve_indicator(df, 'Government expenditure in .* as % of GDP \(%\)')
     
     # split data
     df_gdp_groups = df_gdp['Indicator Name'].str.extract('Government expenditure in (?P<institution>[\s\S]+) as % of GDP (%)', expand=True)
@@ -243,7 +243,7 @@ def retrieve_gdp_education(df):
         Dataframe with all datapoints for the indicator and additional columns: `[education]`
     '''
     # retrieve data
-    df_gdp = _retrieve_indicator(df, 'Government expenditure on .* education as % of GDP (%)')
+    df_gdp = _retrieve_indicator(df, 'Government expenditure on .* education as % of GDP \(%\)')
     
     # split data
     df_gdp_groups = df_gdp['Indicator Name'].str.extract('Government expenditure on (?P<education>[\s\S]+) education as % of GDP (%)', expand=True)
@@ -264,7 +264,7 @@ def retrieve_skill_llece(df):
         DataFrame with all datapoints for the indicators and additional columns `[indicator, gender, grade, subject, level]`
     '''
     # retrieve relevant data
-    df_skill = _retrieve_indicator(df, 'LLECE: .* students by .* proficiency level (%)')
+    df_skill = _retrieve_indicator(df, 'LLECE: .* students by .* proficiency level')
     
     # extract columns
     df_skill_groups = df_skill['Indicator Name'].str.extract('LLECE: (?P<indicator>(?P<gender>(Male|Female))?[ ]*(?P<grade>[0-9]+(rd|th) grade) students by (?P<subject>.*?) proficiency level \(%\)\. (?P<level>[\S ]+))', expand=True)
@@ -336,8 +336,8 @@ def retrieve_skill_piaac(df):
     df_skill = _retrieve_indicator(df, 'PIAAC: .* proficiency level')
     
     # extract columns
-    df_skill_groups = df_skill['Indicator Name'].str.extract('PIAAC: (?P<indicator>(?P<gender>(Male|Female))?[ ]*(?P<type>Young)?[ ]*[aA]dults by .*?(?P<subject>((?<=proficiency level in ).*|.*(?= proficiency level))).*? \(%\). (?P<level>[\S ]+))', expand=True)
-    df_skill = pd.concat([df_skill, df_skill_groups[['indicator', 'gender', 'type', 'subject', 'level']].fillna({'gender': 'Total', 'type': 'all'})], axis=1)
+    df_skill_groups = df_skill['Indicator Name'].str.extract('PIAAC: (?P<indicator>(?P<gender>(Male|Female|Young))?[ ]*[aA]dults by .*?(?P<subject>((?<=proficiency level in ).*|.*(?= proficiency level))).*? \(%\). (?P<level>[\S ]+))', expand=True)
+    df_skill = pd.concat([df_skill, df_skill_groups[['indicator', 'gender', 'subject', 'level']].fillna({'gender': 'Total'})], axis=1)
     
     return df_skill
 
@@ -352,8 +352,7 @@ def filter_years(df, years):
         Dataframe with all relevant columns but only the data columns for the given year
     '''
     # generate a list of data
-    years = list(range(1970, 2018)) + list(range(2020, 2101, 5))
-    rm = ['2010', '2015']
-    years = [str(y) for y in years if str(y) not in rm]
+    ls_years = list(range(1970, 2018)) + list(range(2020, 2101, 5))
+    ls_years = [str(y) for y in ls_years if str(y) not in years]
     # drop the irrelevant years
-    return df.drop(years, axis=1)
+    return df.drop(ls_years, axis=1)
