@@ -2,6 +2,8 @@
 
 This defines an analysis of global education statistics as provided by the world-bank. This code is related to my [medium article](https://medium.com/@felixnext92) about the topic.
 
+> Note that this analysis is not meant to provide definite conclusions over the datasets. There are many analysis left to be made (esp. with regard to economic indicators and combination of different proficiency scores). It is meant to provide a first overview of the dataset.
+
 ## Getting Started
 
 ### Download the Data
